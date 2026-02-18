@@ -1,4 +1,5 @@
 import React from 'react';
+import { ResearchShip } from './MarineLife';
 
 const SurfaceSection = ({ onBeginDescent }) => {
     return (
@@ -87,6 +88,18 @@ const SurfaceSection = ({ onBeginDescent }) => {
                 animation: 'shimmer-sweep 10s linear infinite',
                 zIndex: 4,
             }} />
+
+            {/* Research Ship - Moved here from App.jsx */}
+            <div style={{
+                position: 'absolute',
+                bottom: '15%',
+                left: '10%',
+                zIndex: 10,
+                pointerEvents: 'none',
+                filter: 'drop-shadow(0 0 25px rgba(93, 240, 232, 0.2))',
+            }}>
+                <ResearchShip />
+            </div>
 
             {/* HUD Status Elements */}
             <div style={{

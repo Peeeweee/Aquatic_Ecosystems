@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Anchor, Submarine, ResearchShip } from './components/MarineLife';
+import IntroSection from './components/IntroSection';
 import SurfaceSection from './components/SurfaceSection';
 import SunlitSection from './components/SunlitSection';
 import TwilightSection from './components/TwilightSection';
 import MidnightSection from './components/MidnightSection';
 import AbyssSection from './components/AbyssSection';
 import TrenchSection from './components/TrenchSection';
+
 
 const ZoneDivider = ({ depth, label, tag }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,6 +27,7 @@ const ZoneDivider = ({ depth, label, tag }) => {
   return (
     <div
       ref={dividerRef}
+      className="zone-divider"
       style={{
         width: '100%',
         height: '150px',
@@ -97,11 +100,12 @@ const App = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isAscending, setIsAscending] = useState(false);
+  const [diveStarted, setDiveStarted] = useState(false);
   const [subPos, setSubPos] = useState({ left: '10%', top: '80%' }); // State for submarine position
 
   const handleScreenClick = (e) => {
     // Start ascent overrides this, but for normal exploration:
-    if (!isAscending) {
+    if (!isAscending && diveStarted) {
       setSubPos({
         left: `${e.clientX}px`,
         top: `${e.clientY}px`
@@ -126,6 +130,14 @@ const App = () => {
       setIsAscending(false);
       setSubPos({ left: '10%', top: '80%' }); // Reset to dock position
     }, 5000); // 5 seconds for the anchor to "travel"
+  };
+
+  const handleDive = () => {
+    setDiveStarted(true);
+    // Smooth scroll to the Surface section
+    if (surfaceRef.current) {
+      surfaceRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   // Mouse tracking for parallax
@@ -557,20 +569,8 @@ const App = () => {
         }} />
       ))}
 
-      {/* Persistent Research Ship (Dock) - Static and symmetrical (higher up) */}
-      <div style={{
-        position: 'absolute',
-        bottom: '25%',
-        left: '10%',
-        zIndex: 10,
-        pointerEvents: 'none',
-        filter: 'drop-shadow(0 0 25px rgba(93, 240, 232, 0.2))',
-      }}>
-        <ResearchShip />
-      </div>
-
       {/* Persistent Submarine Following User */}
-      {!loading && (
+      {!loading && diveStarted && (
         <div style={{
           position: 'fixed',
           left: isAscending ? '10%' : subPos.left,
@@ -618,6 +618,13 @@ const App = () => {
       )}
 
       {/* Sections */}
+      <section id="intro" style={{ minHeight: '100vh', width: '100%', position: 'relative' }}>
+        <IntroSection onDive={handleDive} />
+      </section>
+
+      <ZoneDivider depth="0m" tag="DIVE INITIATED" label="APPROACHING SURFACE" />
+
+      {/* Surface */}
       <section id="surface" ref={surfaceRef} style={{ height: '100vh', width: '100%', position: 'relative' }}>
         <SurfaceSection />
       </section>

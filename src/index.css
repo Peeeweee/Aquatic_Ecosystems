@@ -113,3 +113,108 @@
         top: 100%;
     }
 }
+
+/* @media print {
+
+    @page {
+        size: landscape;
+        margin: 0;
+    }
+
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: none !important;
+    }
+
+    button,
+    audio,
+    .scanline,
+    .glass-morphism,
+    [style*="fixed"],
+    [style*="sonar"],
+    [style*="marine-snow"],
+    [style*="bubble-rise"],
+    [style*="ripple"] {
+        display: none !important;
+    }
+
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    section {
+        height: 100vh !important;
+        width: 100vw !important;
+        page-break-after: always;
+        break-after: always;
+        position: relative !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .zone-divider {
+        page-break-before: always;
+        page-break-after: always;
+        height: 100vh !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #000c18 !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .zone-divider * {
+        opacity: 1 !important;
+        transform: none !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        color: white !important;
+    }
+
+    #intro {
+        background-color: #001a33 !important;
+    }
+
+    #surface {
+        background-color: #3498db !important;
+    }
+
+    #sunlit {
+        background-color: #0778a0 !important;
+    }
+
+    #twilight {
+        background-color: #04567a !important;
+    }
+
+    #midnight {
+        background-color: #033045 !important;
+    }
+
+    #abyss {
+        background-color: #011422 !important;
+    }
+
+    #trench {
+        background-color: #000d1a !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    div {
+        color: white !important;
+        text-shadow: none !important;
+    }
+
+    .section-content {
+        max-width: 100% !important;
+    }
+} */

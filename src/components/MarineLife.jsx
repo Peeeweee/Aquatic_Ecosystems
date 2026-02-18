@@ -416,3 +416,83 @@ export const ResearchShip = ({ style }) => (
         </svg>
     </div>
 );
+
+/**
+ * Splash Trigger Icon with Ripples and Centered Text
+ */
+export const SplashTrigger = ({ onClick, style }) => (
+    <div
+        onClick={onClick}
+        className="splash-trigger"
+        style={{
+            position: 'absolute',
+            zIndex: 20,
+            width: '140px',
+            height: '140px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            ...style
+        }}
+    >
+        {/* Ripples */}
+        <div className="ripple r1"></div>
+        <div className="ripple r2"></div>
+        <div className="ripple r3"></div>
+
+        {/* Central Splash Shape */}
+        <svg viewBox="0 0 100 100" width="100%" height="100%" style={{ position: 'absolute', zIndex: 1, filter: 'drop-shadow(0 0 10px rgba(93, 240, 232, 0.4))' }}>
+            <path d="M50,15 C30,15 15,35 15,55 C15,75 30,90 50,90 C70,90 85,75 85,55 C85,35 70,15 50,15 Z M50,5 Q55,0 60,5"
+                fill="rgba(0, 26, 51, 0.8)"
+                stroke="#5df0e8"
+                strokeWidth="2"
+            />
+            {/* Inner Highlight */}
+            <path d="M30,40 Q50,25 70,40" fill="none" stroke="rgba(93, 240, 232, 0.5)" strokeWidth="1" />
+        </svg>
+
+        {/* Centered Text */}
+        <div style={{
+            position: 'relative',
+            zIndex: 2,
+            textAlign: 'center',
+            color: '#5df0e8',
+            fontFamily: "'Cinzel', serif",
+            fontSize: '0.9rem',
+            fontWeight: 'bold',
+            lineHeight: '1.2',
+            letterSpacing: '1px',
+            textShadow: '0 0 5px rgba(0,0,0,0.8)'
+        }}>
+            INITIATE<br />DIVE
+        </div>
+
+        <style>{`
+            .splash-trigger:hover svg {
+                fill: rgba(93, 240, 232, 0.1);
+                stroke: white;
+            }
+            .splash-trigger:hover .ripple {
+                border-color: white;
+            }
+            .ripple {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border: 1px solid rgba(93, 240, 232, 0.4);
+                border-radius: 50%;
+                opacity: 0;
+            }
+            .r1 { animation: ripple-expand 3s linear infinite; }
+            .r2 { animation: ripple-expand 3s linear infinite 1s; }
+            .r3 { animation: ripple-expand 3s linear infinite 2s; }
+
+            @keyframes ripple-expand {
+                0% { width: 60px; height: 60px; opacity: 0.8; border-width: 2px; }
+                100% { width: 200px; height: 200px; opacity: 0; border-width: 0px; }
+            }
+        `}</style>
+    </div>
+);
