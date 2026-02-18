@@ -45,13 +45,12 @@ const AbyssSection = () => {
                 alignSelf: 'flex-start',
             }}>
                 <p style={{
-                    fontFamily: 'monospace',
+                    fontFamily: "'Cinzel', serif",
                     color: 'rgba(255, 255, 255, 0.9)',
                     fontSize: 'clamp(0.75rem, 2vw, 0.9rem)',
                     lineHeight: '1.6',
                     margin: 0,
                 }}>
-                    <span style={{ color: '#5df0e8', marginRight: '10px' }}>[00:44:52]</span>
                     "The abyss. Pressure here would crush an unprotected human. Yet life organized itself into layers — each zone its own world, each with its own rules."
                 </p>
             </div>

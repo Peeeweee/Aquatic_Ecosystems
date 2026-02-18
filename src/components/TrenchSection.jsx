@@ -65,7 +65,7 @@ const WarningPanel = ({ id, title, content, isOpen, onToggle }) => {
     );
 };
 
-const TrenchSection = () => {
+const TrenchSection = ({ onReturn }) => {
     const [openPanel, setOpenPanel] = useState(null);
     const [showSources, setShowSources] = useState(false);
 
@@ -139,13 +139,12 @@ const TrenchSection = () => {
                 border: '1px solid rgba(255, 77, 77, 0.2)',
             }}>
                 <p style={{
-                    fontFamily: 'monospace',
+                    fontFamily: "'Cinzel', serif",
                     color: 'rgba(255, 200, 200, 0.9)',
                     fontSize: 'clamp(0.75rem, 2vw, 0.9rem)',
                     lineHeight: '1.6',
                     margin: 0,
                 }}>
-                    <span style={{ color: '#ff4d4d', marginRight: '10px' }}>[01:02:18]</span>
                     "Something's wrong down here. The trench should be untouched. But even here, we've found plastic bags. Microplastics. The fingerprints of human destruction reach even this deep. <span style={{ color: '#ff4d4d', fontWeight: 'bold' }}>[SIGNAL DEGRADING]</span>"
                 </p>
             </div>
@@ -168,84 +167,115 @@ const TrenchSection = () => {
                 ))}
             </div>
 
-            {/* Closing Statement */}
-            <div style={{ margin: 'clamp(4rem, 15vh, 8rem) 0 4rem 0', textAlign: 'center', zIndex: 5, padding: '0 20px' }}>
-                <h2 className="cinzel" style={{
-                    fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
-                    color: '#5df0e8',
-                    textShadow: '0 0 20px rgba(93, 240, 232, 0.5)',
-                    animation: 'teal-pulse 4s infinite ease-in-out',
-                    maxWidth: '800px',
-                    margin: '0 auto',
-                }}>
-                    "The deeper we go, the more we find — and the more we stand to lose."
-                </h2>
+            {/* Final Quote Refinement */}
+            <div style={{
+                textAlign: 'center',
+                maxWidth: '900px',
+                marginBottom: '5rem',
+                transform: 'translateY(0)',
+                opacity: 0.9,
+                transition: 'all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1)',
+                zIndex: 5
+            }}>
+                <blockquote style={{ margin: 0, position: 'relative' }}>
+                    <h2 className="cinzel" style={{
+                        fontSize: 'clamp(1.5rem, 5vw, 2.5rem)',
+                        color: 'white',
+                        lineHeight: '1.4',
+                        textShadow: '0 0 20px rgba(93, 240, 232, 0.3)',
+                        fontWeight: 'lighter',
+                    }}>
+                        "The deeper we go, the more we find — <br />
+                        <span style={{ color: 'var(--teal)' }}>and the more we stand to lose."</span>
+                    </h2>
+                </blockquote>
             </div>
 
-            {/* Sources Toggle */}
-            <div style={{ zIndex: 5, textAlign: 'center', marginBottom: '4rem', width: '100%', padding: '0 20px', boxSizing: 'border-box' }}>
+            {/* Redesigned Sources Area */}
+            <div style={{ zIndex: 5, textAlign: 'center', width: '100%', padding: '0 20px', boxSizing: 'border-box' }}>
                 <button
                     onClick={() => setShowSources(!showSources)}
+                    className="interactive-element cinzel"
                     style={{
-                        background: 'none',
+                        background: 'transparent',
                         border: '1px solid rgba(93, 240, 232, 0.3)',
-                        color: '#5df0e8',
-                        padding: '0.8rem 1.5rem',
-                        cursor: 'pointer',
-                        fontSize: 'clamp(0.7rem, 2vw, 0.8rem)',
-                        fontFamily: 'Inter, sans-serif',
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        padding: '12px 24px',
                         borderRadius: '4px',
-                        marginBottom: '1.5rem',
+                        cursor: 'pointer',
+                        fontSize: '0.75rem',
                         transition: 'all 0.3s ease',
+                        letterSpacing: '0.1em',
+                        marginBottom: '2rem'
                     }}
                 >
-                    {showSources ? 'Hide Sources ↑' : 'View Sources ↓'}
+                    {showSources ? 'HIDE DOCUMENTATION ↓' : 'VIEW SOURCES & DATA ↑'}
                 </button>
 
                 {showSources && (
-                    <div style={{
-                        maxWidth: '600px',
+                    <div className="glass-morphism" style={{
+                        maxWidth: '800px',
                         margin: '0 auto',
-                        textAlign: 'left',
-                        fontSize: 'clamp(0.65rem, 1.8vw, 0.75rem)',
-                        color: 'rgba(255, 255, 255, 0.6)',
-                        padding: '1.5rem',
-                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                        borderRadius: '4px',
-                        lineHeight: '1.6',
+                        padding: '3rem 2rem',
+                        borderRadius: '8px',
+                        width: '100%',
+                        animation: 'fadeIn 0.5s ease-out',
+                        textAlign: 'left'
                     }}>
-                        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                            <li style={{ marginBottom: '0.5rem' }}>WWF (2020). Living Planet Report 2020.</li>
-                            <li style={{ marginBottom: '0.5rem' }}>NOAA (2023). Gulf of Mexico Hypoxic Zone.</li>
-                            <li style={{ marginBottom: '0.5rem' }}>Miller, G.T. & Spoolman, S. (2012). Living in the Environment.</li>
-                            <li style={{ marginBottom: '0.5rem' }}>Odum, E.P. & Barrett, G.W. (2004). Fundamentals of Ecology.</li>
-                            <li style={{ marginBottom: '0.5rem' }}>Castro, P. & Huber, M.E. (2019). Marine Biology, 11th ed.</li>
-                            <li>Cunningham, W.P. & Cunningham, M.A. (2017). Principles of Environmental Science.</li>
-                        </ul>
+                        <div className="scanline" />
+                        <h4 className="cinzel" style={{ fontSize: '0.9rem', color: 'var(--teal)', marginBottom: '2rem', textAlign: 'center' }}>Scientific References</h4>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: window.innerWidth < 600 ? '1fr' : '1fr 1fr',
+                            gap: '1.5rem',
+                            fontSize: '0.75rem',
+                            color: 'rgba(255, 255, 255, 0.7)',
+                            fontFamily: 'Inter, sans-serif'
+                        }}>
+                            {[
+                                "WWF (2020). Living Planet Report 2020.",
+                                "NOAA (2023). Gulf of Mexico Hypoxic Zone.",
+                                "Miller, G.T. & Spoolman, S.E. (2012). Living in the Environment.",
+                                "Odum, E.P. & Barrett, G.W. (2004). Fundamentals of Ecology.",
+                                "Castro, P. & Huber, M.E. (2019). Marine Biology, 11th ed.",
+                                "Cunningham, W.P. & M.A. (2017). Principles of Environmental Science."
+                            ].map((source, i) => (
+                                <div key={i} style={{ borderLeft: '1px solid var(--teal)', paddingLeft: '1rem' }}>
+                                    {source}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>
 
             {/* Return to Surface Button */}
-            <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="cinzel"
-                style={{
-                    padding: 'clamp(0.8rem, 3vw, 1.2rem) clamp(1.5rem, 5vw, 3rem)',
-                    fontSize: 'clamp(1rem, 3.5vw, 1.3rem)',
-                    background: 'none',
-                    border: '2px solid #5df0e8',
-                    color: '#5df0e8',
-                    cursor: 'pointer',
-                    borderRadius: '4px',
-                    boxShadow: '0 0 15px rgba(93, 240, 232, 0.2)',
-                    transition: 'all 0.3s ease',
-                    zIndex: 5,
-                    marginBottom: '5rem',
-                }}
-            >
-                ↑ RETURN TO SURFACE
-            </button>
+            <div style={{ marginTop: '6rem', marginBottom: '5rem', textAlign: 'center' }}>
+                <button
+                    onClick={(e) => { e.stopPropagation(); if (onReturn) onReturn(); else window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    className="interactive-element cinzel"
+                    style={{
+                        background: 'rgba(93, 240, 232, 0.1)',
+                        border: '2px solid var(--teal)',
+                        color: 'white',
+                        padding: '2rem',
+                        borderRadius: '50%',
+                        width: '120px',
+                        height: '120px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        boxShadow: '0 0 30px rgba(93, 240, 232, 0.2)',
+                        gap: '8px'
+                    }}
+                >
+                    <span style={{ fontSize: '2rem' }}>⚓</span>
+                    <span style={{ fontSize: '0.6rem', letterSpacing: '0.1rem' }}>ASCEND</span>
+                </button>
+            </div>
 
             <style>{`
                 @keyframes alert-pulse {

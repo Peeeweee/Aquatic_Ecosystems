@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Anchor, Submarine, ResearchShip } from './components/MarineLife';
 import SurfaceSection from './components/SurfaceSection';
 import SunlitSection from './components/SunlitSection';
 import TwilightSection from './components/TwilightSection';
@@ -94,6 +95,19 @@ const App = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [ripples, setRipples] = useState([]);
   const [isMuted, setIsMuted] = useState(true);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isAscending, setIsAscending] = useState(false);
+  const [subPos, setSubPos] = useState({ left: '10%', top: '80%' }); // State for submarine position
+
+  const handleScreenClick = (e) => {
+    // Start ascent overrides this, but for normal exploration:
+    if (!isAscending) {
+      setSubPos({
+        left: `${e.clientX}px`,
+        top: `${e.clientY}px`
+      });
+    }
+  };
 
   const audioRef = useRef(null);
   const surfaceRef = useRef(null);
@@ -102,6 +116,29 @@ const App = () => {
   const midnightRef = useRef(null);
   const abyssRef = useRef(null);
   const trenchRef = useRef(null);
+
+  const handleReturnToSurface = () => {
+    setIsAscending(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Animation duration should match scroll speed or be fixed
+    setTimeout(() => {
+      setIsAscending(false);
+      setSubPos({ left: '10%', top: '80%' }); // Reset to dock position
+    }, 5000); // 5 seconds for the anchor to "travel"
+  };
+
+  // Mouse tracking for parallax
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20
+      });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const sectionsData = [
     { ref: surfaceRef, name: 'surface', zone: 'Surface Zone', depth: 0 },
@@ -277,6 +314,7 @@ const App = () => {
   };
 
   const handleClick = (e) => {
+    // 1. Ripple Effect
     const newRipple = {
       id: Date.now(),
       x: e.clientX,
@@ -286,6 +324,14 @@ const App = () => {
     setTimeout(() => {
       setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
     }, 600);
+
+    // 2. Submarine Movement
+    if (!isAscending) {
+      setSubPos({
+        left: `${e.clientX}px`,
+        top: `${e.clientY}px`
+      });
+    }
   };
 
 
@@ -365,14 +411,34 @@ const App = () => {
         transition: 'width 0.1s ease-out',
       }} />
 
-      {/* Pressure Vignette */}
+      {/* Pressure Vignette & Distortion */}
       <div style={{
         position: 'fixed',
         inset: 0,
         pointerEvents: 'none',
         boxShadow: `inset 0 0 ${scrollProgress * 200}px ${scrollProgress * 100}px rgba(0, 13, 26, ${scrollProgress * 0.85})`,
         zIndex: 850,
+        animation: scrollProgress > 0.8 ? 'pressure-pulse 4s infinite ease-in-out' : 'none',
       }} />
+
+      {/* Marine Snow / Particles */}
+      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 60 }}>
+        {[...Array(Math.floor(20 + scrollProgress * 50))].map((_, i) => (
+          <div key={`snow-${i}`} style={{
+            position: 'absolute',
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            width: `${1 + Math.random() * 2}px`,
+            height: `${1 + Math.random() * 2}px`,
+            backgroundColor: 'rgba(255, 255, 255, 0.4)',
+            borderRadius: '50%',
+            animation: `marine-snow ${10 + Math.random() * 20}s linear infinite`,
+            opacity: 0.3 + (scrollProgress * 0.5),
+            filter: 'blur(1px)',
+            willChange: 'transform',
+          }} />
+        ))}
+      </div>
 
       {/* Floating Bubbles */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 50 }}>
@@ -392,39 +458,68 @@ const App = () => {
         ))}
       </div>
 
-      {/* Depth Meter - Responsive Position */}
-      <div style={{
-        position: 'fixed',
-        right: window.innerWidth < 700 ? 'auto' : '40px',
-        bottom: window.innerWidth < 700 ? '20px' : 'auto',
-        left: window.innerWidth < 700 ? '50%' : 'auto',
-        top: window.innerWidth < 700 ? 'auto' : '50%',
-        transform: window.innerWidth < 700 ? 'translateX(-50%)' : 'translateY(-50%)',
-        zIndex: 800,
-        display: 'flex',
-        flexDirection: window.innerWidth < 700 ? 'row' : 'column',
-        alignItems: 'center',
-        color: 'white',
-        backgroundColor: window.innerWidth < 700 ? 'rgba(0,0,0,0.6)' : 'transparent',
-        padding: window.innerWidth < 700 ? '10px 20px' : '0',
-        borderRadius: window.innerWidth < 700 ? '30px' : '0',
-        backdropFilter: window.innerWidth < 700 ? 'blur(10px)' : 'none',
-        border: window.innerWidth < 700 ? '1px solid rgba(93, 240, 232, 0.3)' : 'none',
-      }}>
+      <div
+        className="glass-morphism"
+        style={{
+          position: 'fixed',
+          right: window.innerWidth < 700 ? 'auto' : '40px',
+          bottom: window.innerWidth < 700 ? '20px' : 'auto',
+          left: window.innerWidth < 700 ? '50%' : 'auto',
+          top: window.innerWidth < 700 ? 'auto' : '50%',
+          transform: window.innerWidth < 700
+            ? `translateX(calc(-50% + ${mousePos.x * 0.2}px))`
+            : `translateY(calc(-50% + ${mousePos.y * 0.5}px))`,
+          zIndex: 800,
+          display: 'flex',
+          flexDirection: window.innerWidth < 700 ? 'row' : 'column',
+          alignItems: 'center',
+          color: 'white',
+          padding: window.innerWidth < 700 ? '10px 20px' : '20px 10px',
+          borderRadius: window.innerWidth < 700 ? '30px' : '15px',
+          border: '1px solid rgba(93, 240, 232, 0.3)',
+          transition: 'transform 0.1s ease-out',
+        }}>
+        <div className="scanline" />
         <div style={{
           marginBottom: window.innerWidth < 700 ? '0' : '20px',
           marginRight: window.innerWidth < 700 ? '20px' : '0',
           textAlign: window.innerWidth < 700 ? 'left' : 'right'
         }}>
-          <div className="cinzel" style={{ fontSize: 'clamp(1rem, 4vw, 2rem)', color: 'var(--teal)' }}>{currentDepth}m</div>
-          <div className="cinzel" style={{ fontSize: 'clamp(0.6rem, 2vw, 0.8rem)', opacity: 0.8 }}>{activeZone}</div>
+          <div className="cinzel" style={{
+            fontSize: 'clamp(1rem, 4vw, 2.2rem)',
+            color: 'var(--teal)',
+            textShadow: '0 0 10px var(--teal)',
+            fontWeight: '900',
+            letterSpacing: '0.2rem'
+          }}>
+            {currentDepth.toLocaleString()}M
+          </div>
+          <div className="cinzel" style={{
+            fontSize: 'clamp(0.6rem, 2vw, 0.75rem)',
+            opacity: 0.8,
+            letterSpacing: '0.15rem',
+            marginTop: '4px'
+          }}>
+            {activeZone}
+          </div>
         </div>
         <div style={{
           width: window.innerWidth < 700 ? '100px' : '2px',
           height: window.innerWidth < 700 ? '2px' : '240px',
-          backgroundColor: 'rgba(255,255,255,0.2)',
-          position: 'relative'
+          backgroundColor: 'rgba(255,255,255,0.1)',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
+          <div style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'var(--teal)',
+            opacity: 0.2,
+            transform: window.innerWidth < 700 ? `scaleX(${scrollProgress})` : `scaleY(${scrollProgress})`,
+            transformOrigin: window.innerWidth < 700 ? 'left' : 'top',
+            transition: 'transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)'
+          }} />
           {sectionsData.map((_, i) => {
             const isActive = activeSectionIndex === i;
             return (
@@ -433,12 +528,13 @@ const App = () => {
                 left: window.innerWidth < 700 ? `${(i / (sectionsData.length - 1)) * 100}%` : '50%',
                 top: window.innerWidth < 700 ? '50%' : `${(i / (sectionsData.length - 1)) * 100}%`,
                 transform: 'translate(-50%, -50%)',
-                width: '10px',
-                height: '10px',
+                width: isActive ? '10px' : '4px',
+                height: isActive ? '10px' : '4px',
                 borderRadius: '50%',
-                backgroundColor: isActive ? 'var(--teal)' : 'rgba(255,255,255,0.5)',
+                backgroundColor: isActive ? 'var(--teal)' : 'rgba(255,255,255,0.2)',
                 boxShadow: isActive ? '0 0 15px var(--teal)' : 'none',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                zIndex: 2
               }} />
             );
           })}
@@ -461,8 +557,68 @@ const App = () => {
         }} />
       ))}
 
+      {/* Persistent Research Ship (Dock) - Static and symmetrical (higher up) */}
+      <div style={{
+        position: 'absolute',
+        bottom: '25%',
+        left: '10%',
+        zIndex: 10,
+        pointerEvents: 'none',
+        filter: 'drop-shadow(0 0 25px rgba(93, 240, 232, 0.2))',
+      }}>
+        <ResearchShip />
+      </div>
+
+      {/* Persistent Submarine Following User */}
+      {!loading && (
+        <div style={{
+          position: 'fixed',
+          left: isAscending ? '10%' : subPos.left,
+          top: isAscending ? '-100vh' : subPos.top,
+          transform: `scale(${isAscending ? 0.8 : 1}) translate(-50%, -50%)`, // Center on click
+          zIndex: 850,
+          transition: isAscending
+            ? 'top 5s cubic-bezier(0.4, 0, 0.2, 1), left 5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s'
+            : 'left 2s cubic-bezier(0.2, 0.8, 0.2, 1), top 2s cubic-bezier(0.2, 0.8, 0.2, 1)', // Smooth Swim
+          opacity: 1,
+          pointerEvents: 'none',
+        }}>
+          <Submarine style={{
+            animation: isAscending ? 'none' : 'sub-bob 4s ease-in-out infinite'
+          }} />
+          <style>{`
+            @keyframes sub-bob {
+              0%, 100% { transform: translateY(0) rotate(-2deg); }
+              50% { transform: translateY(-15px) rotate(2deg); }
+            }
+          `}</style>
+        </div>
+      )}
+
+      {/* Anchor & Submarine Ascent Animation */}
+      {isAscending && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 2000,
+          pointerEvents: 'none',
+        }}>
+          <Anchor style={{
+            animation: 'anchor-ascent 5s cubic-bezier(0.4, 0, 0.2, 1) forwards'
+          }} />
+          <style>{`
+            @keyframes anchor-ascent {
+              0% { top: 110vh; opacity: 0; transform: translateX(-50%) rotate(-10deg) scale(1.2); }
+              10% { opacity: 1; }
+              90% { opacity: 1; }
+              100% { top: -30vh; opacity: 0; transform: translateX(-50%) rotate(10deg) scale(0.8); }
+            }
+          `}</style>
+        </div>
+      )}
+
       {/* Sections */}
-      <section id="surface" ref={surfaceRef} style={{ height: '100vh', width: '100%' }}>
+      <section id="surface" ref={surfaceRef} style={{ height: '100vh', width: '100%', position: 'relative' }}>
         <SurfaceSection />
       </section>
 
@@ -502,7 +658,7 @@ const App = () => {
 
       <section id="trench" ref={trenchRef} style={{ minHeight: '100vh', width: '100%' }}>
         <div className="reveal">
-          <TrenchSection />
+          <TrenchSection onReturn={handleReturnToSurface} />
         </div>
       </section>
     </div>

@@ -171,13 +171,12 @@ const MidnightSection = () => {
                 zIndex: 10,
             }}>
                 <p style={{
-                    fontFamily: 'monospace',
+                    fontFamily: "'Cinzel', serif",
                     color: 'rgba(255, 255, 255, 0.9)',
                     fontSize: 'clamp(0.75rem, 2vw, 0.9rem)',
                     lineHeight: '1.6',
                     margin: 0,
                 }}>
-                    <span style={{ color: '#5df0e8', marginRight: '10px' }}>[00:21:07]</span>
                     "Total darkness now. But life is everywhere — just a different kind. Down here, what matters isn't what you look like. It's how you move, where you live, and how you eat."
                 </p>
             </div>

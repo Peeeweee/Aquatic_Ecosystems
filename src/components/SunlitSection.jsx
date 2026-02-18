@@ -27,10 +27,10 @@ const StatCounter = ({ target, label, prefix = '', suffix = '', isVisible }) => 
 
     return (
         <div style={{ textAlign: 'center', minWidth: '150px' }}>
-            <div className="cinzel" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', color: '#5df0e8', fontWeight: 'bold' }}>
+            <div className="cinzel" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', color: '#5df0e8', fontWeight: '900', letterSpacing: '0.1em' }}>
                 {prefix}{count % 1 === 0 ? count : count.toFixed(1)}{suffix}
             </div>
-            <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.6rem, 1.5vw, 0.8rem)', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.1rem' }}>
+            <div className="inter-ui" style={{ fontSize: 'clamp(0.6rem, 1.5vw, 0.7rem)', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.15rem', marginTop: '8px' }}>
                 {label}
             </div>
         </div>
@@ -66,18 +66,18 @@ const SunlitSection = () => {
     const cardStyle = (id) => ({
         flex: 1,
         minWidth: 'min(100%, 350px)',
-        padding: '2rem',
-        backgroundColor: 'rgba(0, 13, 26, 0.4)',
-        border: `1px solid ${hoveredCard === id ? '#5df0e8' : 'rgba(93, 240, 232, 0.2)'}`,
-        boxShadow: hoveredCard === id ? '0 0 25px rgba(93, 240, 232, 0.3)' : 'none',
-        transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-        transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
+        padding: '2.5rem 2rem',
+        transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        transform: isVisible
+            ? (hoveredCard === id ? 'translateY(-15px) scale(1.02)' : 'translateY(0)')
+            : 'translateY(50px)',
         opacity: isVisible ? 1 : 0,
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
-        backdropFilter: 'blur(10px)',
+        gap: '1.2rem',
         willChange: 'transform, opacity',
+        position: 'relative',
+        overflow: 'hidden'
     });
 
     return (
@@ -133,13 +133,12 @@ const SunlitSection = () => {
                 willChange: 'transform, opacity',
             }}>
                 <p style={{
-                    fontFamily: 'monospace',
+                    fontFamily: "'Cinzel', serif",
                     color: 'rgba(255, 255, 255, 0.9)',
                     fontSize: 'clamp(0.75rem, 2vw, 0.9rem)',
                     lineHeight: '1.6',
                     margin: 0,
                 }}>
-                    <span style={{ color: '#5df0e8', marginRight: '10px' }}>[00:02:14]</span>
                     "Still in the sunlit zone. Light reaches here — this is where most life begins. Two completely different worlds exist in water: one fresh, one salt. And they share almost nothing."
                 </p>
             </div>
@@ -172,47 +171,47 @@ const SunlitSection = () => {
             >
                 {/* Card 1 - Freshwater */}
                 <div
+                    className="glass-morphism"
                     style={{ ...cardStyle(1), transitionDelay: '0.4s' }}
                     onMouseEnter={() => setHoveredCard(1)}
                     onMouseLeave={() => setHoveredCard(null)}
                 >
+                    <div className="scanline" />
                     <div style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)' }}>🏞️</div>
-                    <h3 className="cinzel" style={{ fontSize: 'clamp(1.2rem, 4vw, 1.8rem)', color: '#5df0e8', margin: 0 }}>Freshwater</h3>
-                    <ul style={{
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: 'clamp(0.8rem, 2vw, 0.95rem)',
-                        lineHeight: '1.6',
-                        color: 'rgba(255,255,255,0.8)',
+                    <h3 className="cinzel" style={{ fontSize: 'clamp(1.2rem, 4vw, 1.6rem)', color: '#5df0e8', margin: 0, fontWeight: '700' }}>Freshwater</h3>
+                    <ul className="inter-ui" style={{
+                        fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
+                        color: 'rgba(255,255,255,0.7)',
                         paddingLeft: '1.2rem',
                         margin: 0
                     }}>
                         <li><strong>Salinity:</strong> less than 0.5 ppt</li>
-                        <li>Only 2.5% of Earth's water is fresh — most frozen in glaciers</li>
+                        <li>Only 2.5% of Earth's water is fresh</li>
                         <li>Less than 1% is accessible liquid freshwater</li>
-                        <li><strong>Types:</strong> Rivers & streams (high oxygen), Lakes & ponds (still), Wetlands (marshes, swamps)</li>
+                        <li><strong>Types:</strong> Rivers, Lakes, & Wetlands</li>
                     </ul>
                 </div>
 
                 {/* Card 2 - Saltwater */}
                 <div
+                    className="glass-morphism"
                     style={{ ...cardStyle(2), transitionDelay: '0.6s' }}
                     onMouseEnter={() => setHoveredCard(2)}
                     onMouseLeave={() => setHoveredCard(null)}
                 >
+                    <div className="scanline" />
                     <div style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)' }}>🌊</div>
-                    <h3 className="cinzel" style={{ fontSize: 'clamp(1.2rem, 4vw, 1.8rem)', color: '#5df0e8', margin: 0 }}>Saltwater (Marine)</h3>
-                    <ul style={{
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: 'clamp(0.8rem, 2vw, 0.95rem)',
-                        lineHeight: '1.6',
-                        color: 'rgba(255,255,255,0.8)',
+                    <h3 className="cinzel" style={{ fontSize: 'clamp(1.2rem, 4vw, 1.6rem)', color: '#5df0e8', margin: 0, fontWeight: '700' }}>Saltwater (Marine)</h3>
+                    <ul className="inter-ui" style={{
+                        fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
+                        color: 'rgba(255,255,255,0.7)',
                         paddingLeft: '1.2rem',
                         margin: 0
                     }}>
                         <li><strong>Salinity:</strong> 30–38 ppt</li>
                         <li>97% of all Earth's water</li>
-                        <li>Covers 70% of Earth's surface — 95% still unexplored</li>
-                        <li><strong>Types:</strong> Open ocean, Coral reefs, Estuaries (brackish), Intertidal zones</li>
+                        <li>Covers 70% of Earth's surface</li>
+                        <li><strong>Types:</strong> Open ocean, Coral reefs, & Estuaries</li>
                     </ul>
                 </div>
             </div>

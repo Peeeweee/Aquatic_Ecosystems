@@ -101,13 +101,12 @@ const TwilightSection = () => {
                 alignSelf: 'flex-start',
             }}>
                 <p style={{
-                    fontFamily: 'monospace',
+                    fontFamily: "'Cinzel', serif",
                     color: 'rgba(255, 255, 255, 0.9)',
                     fontSize: 'clamp(0.75rem, 2vw, 0.9rem)',
                     lineHeight: '1.6',
                     margin: 0,
                 }}>
-                    <span style={{ color: '#5df0e8', marginRight: '10px' }}>[00:08:31]</span>
                     "Entering the twilight zone. Light barely reaches here. Not every creature can survive at this depth — or at any depth. Three invisible forces decide who lives and who doesn't."
                 </p>
             </div>
