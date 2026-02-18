@@ -176,11 +176,13 @@ const SurfaceSection = ({ onBeginDescent }) => {
                     boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
                 }}>
                     <p style={{
-                        fontFamily: 'monospace',
+                        fontFamily: "'Cinzel', serif",
                         color: 'rgba(255, 255, 255, 0.95)',
                         fontSize: 'clamp(0.8rem, 2.2vw, 0.95rem)',
                         lineHeight: '1.7',
                         margin: 0,
+                        textAlign: 'justify',
+                        textJustify: 'inter-word',
                     }}>
                         "This is Diver One, descending now. Below the surface lies a world most people never see — ancient, vast, and more alive than anywhere on land. Your mission: understand it before it's gone."
                     </p>
