@@ -474,38 +474,38 @@ const App = () => {
           flexDirection: window.innerWidth < 700 ? 'row' : 'column',
           alignItems: 'center',
           color: 'white',
-          padding: window.innerWidth < 700 ? '10px 20px' : '20px 10px',
-          borderRadius: window.innerWidth < 700 ? '30px' : '15px',
+          padding: window.innerWidth < 700 ? '5px 15px' : '15px 5px',
+          borderRadius: window.innerWidth < 700 ? '20px' : '10px',
           border: '1px solid rgba(93, 240, 232, 0.3)',
           transition: 'transform 0.1s ease-out',
         }}>
         <div className="scanline" />
         <div style={{
-          marginBottom: window.innerWidth < 700 ? '0' : '20px',
-          marginRight: window.innerWidth < 700 ? '20px' : '0',
+          marginBottom: window.innerWidth < 700 ? '0' : '10px',
+          marginRight: window.innerWidth < 700 ? '15px' : '0',
           textAlign: window.innerWidth < 700 ? 'left' : 'right'
         }}>
           <div className="cinzel" style={{
-            fontSize: 'clamp(1rem, 4vw, 2.2rem)',
+            fontSize: 'clamp(0.8rem, 2.5vw, 1.2rem)',
             color: 'var(--teal)',
             textShadow: '0 0 10px var(--teal)',
             fontWeight: '900',
-            letterSpacing: '0.2rem'
+            letterSpacing: '0.1rem'
           }}>
             {currentDepth.toLocaleString()}M
           </div>
           <div className="cinzel" style={{
-            fontSize: 'clamp(0.6rem, 2vw, 0.75rem)',
+            fontSize: 'clamp(0.4rem, 1.2vw, 0.55rem)',
             opacity: 0.8,
-            letterSpacing: '0.15rem',
-            marginTop: '4px'
+            letterSpacing: '0.05rem',
+            marginTop: '1px'
           }}>
             {activeZone}
           </div>
         </div>
         <div style={{
-          width: window.innerWidth < 700 ? '100px' : '2px',
-          height: window.innerWidth < 700 ? '2px' : '240px',
+          width: window.innerWidth < 700 ? '80px' : '2px',
+          height: window.innerWidth < 700 ? '2px' : '180px',
           backgroundColor: 'rgba(255,255,255,0.1)',
           position: 'relative',
           overflow: 'hidden'
