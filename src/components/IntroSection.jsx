@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SplashTrigger } from './MarineLife';
+import EnvironmentalScene from './EnvironmentalScene';
 
 const IntroSection = ({ onDive }) => {
     const [visible, setVisible] = useState(false);
@@ -17,23 +18,13 @@ const IntroSection = ({ onDive }) => {
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
-            background: 'linear-gradient(135deg, #001a33 0%, #000c18 100%)',
             color: 'white',
             padding: '2rem',
             boxSizing: 'border-box',
             overflow: 'hidden'
         }}>
-            {/* Background Particles/Stars */}
-            <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                backgroundImage: 'radial-gradient(circle at center, rgba(93, 240, 232, 0.1) 1px, transparent 1px)',
-                backgroundSize: '40px 40px',
-                pointerEvents: 'none'
-            }} />
+            <EnvironmentalScene />
+
 
             <div style={{
                 maxWidth: '1000px',
