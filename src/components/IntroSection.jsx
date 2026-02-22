@@ -2,15 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SplashTrigger } from './MarineLife';
 import EnvironmentalScene from './EnvironmentalScene';
 
-const IntroSection = ({ onDive, introComplete }) => {
-    const [visible, setVisible] = useState(false);
-
-    useEffect(() => {
-        if (introComplete) {
-            setVisible(true);
-        }
-    }, [introComplete]);
-
+const IntroSection = ({ onDive }) => {
     return (
         <div style={{
             width: '100%',
@@ -25,16 +17,11 @@ const IntroSection = ({ onDive, introComplete }) => {
             boxSizing: 'border-box',
             overflow: 'hidden'
         }}>
-            <EnvironmentalScene />
-
 
             <div style={{
                 maxWidth: '1000px',
                 width: '100%',
-                zIndex: 10,
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'all 1s ease-out'
+                zIndex: 10
             }}>
                 {/* Title */}
                 <h1 className="cinzel" style={{

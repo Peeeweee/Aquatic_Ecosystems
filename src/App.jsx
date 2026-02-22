@@ -104,6 +104,13 @@ const App = () => {
   const [introComplete, setIntroComplete] = useState(false);
   const [subPos, setSubPos] = useState({ left: '10%', top: '80%' }); // State for submarine position
 
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleScreenClick = (e) => {
     // Start ascent overrides this, but for normal exploration:
     if (!isAscending && diveStarted) {
