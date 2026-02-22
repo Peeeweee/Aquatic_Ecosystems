@@ -3,20 +3,20 @@ import { Anglerfish, Octopus } from './MarineLife';
 
 const AbyssSection = () => {
     const [ecosystem, setEcosystem] = useState('freshwater');
-    const [openZoneIndex, setOpenZoneIndex] = useState(null);
+    const [openZones, setOpenZones] = useState([]);
 
     const freshwaterZones = [
-        { name: 'Littoral', color: '#1a7aab', depth: 'Shallow', desc: 'Shallow, sunlit, rooted plants. Home to diverse life including fish, frogs, insects, and turtles.' },
-        { name: 'Limnetic', color: '#145e87', depth: 'Open', desc: 'Open water where light penetrates. Dominated by phytoplankton, zooplankton, and open-water fish.' },
-        { name: 'Profundal', color: '#0d4463', depth: 'Deep', desc: 'Deep, cold water where sunlight cannot reach. No photosynthesis occurs; inhabited by decomposers and benthos.' },
-        { name: 'Benthic', color: '#0b4a6b', depth: 'Bottom', desc: 'The bottom sediment layer. Inhabited by worms, clams, and bacteria. Rich in organic matter from above.' },
+        { name: 'Littoral', color: '#1a7aab', depth: 'Shallow', desc: 'The bright, busy edges — where sunlight hits and life thrives most visibly. (The part where you can still see the bottom and plants are rooted)' },
+        { name: 'Limnetic', color: '#145e87', depth: 'Open', desc: 'The open middle — still lit, still alive, but dominated by drifters like plankton. (The open water surface away from shore, where you\'d be swimming or boating)' },
+        { name: 'Profundal', color: '#0d4463', depth: 'Deep', desc: 'Where sunlight gives up. Dark, cold, and quiet — only decomposers make it here. (Below the point where light stops reaching — the dark middle depths)' },
+        { name: 'Benthic', color: '#0b4a6b', depth: 'Bottom', desc: 'The floor — where everything that sinks ends up, and nothing goes to waste. (Literally the mud and sediment at the very bottom)' },
     ];
 
     const marineZones = [
-        { name: 'Intertidal', color: '#1a7aab', depth: 'Tide-line', desc: 'Where land meets sea. Ecosystem must survive both exposure to air and submergence by tides.' },
-        { name: 'Neritic', color: '#0f5e87', depth: 'Shelf', desc: 'Shallow waters over the continental shelf. Sunlit and nutrient-rich; hosts coral reefs and kelp forests.' },
-        { name: 'Oceanic', color: '#083d5e', depth: 'Open', desc: 'The vast open ocean beyond the shelf. Vertically divided into Epipelagic, Mesopelagic, Bathypelagic, and Abyssal zones.' },
-        { name: 'Benthic', color: '#073a57', depth: 'Floor', desc: 'The ocean floor. Inhabited by extreme specialists like anglerfish, tube worms, and giant isopods in the deepest regions.' },
+        { name: 'Intertidal', color: '#1a7aab', depth: 'Tide-line', desc: 'The edge between two worlds — organisms here survive being dry half the time. (The wet rocks and sand you walk on at the beach)' },
+        { name: 'Neritic', color: '#0f5e87', depth: 'Shelf', desc: 'Shallow, sunlit, and rich — this is where coral reefs and kelp forests call home. (Shallow enough to snorkel or dive — you can still see the seafloor)' },
+        { name: 'Oceanic', color: '#083d5e', depth: 'Open', desc: 'Beyond the shelf, it goes deep — from sunlit surface all the way to crushing darkness. (Way out in open water where the bottom is unreachable)' },
+        { name: 'Benthic', color: '#073a57', depth: 'Floor', desc: 'The deep ocean floor — home to creatures that look like they shouldn\'t exist. (The very bottom — pitch black, extreme pressure, no light)' },
     ];
 
     const currentZones = ecosystem === 'freshwater' ? freshwaterZones : marineZones;
@@ -72,7 +72,7 @@ const AbyssSection = () => {
                 justifyContent: 'center',
             }}>
                 <button
-                    onClick={() => { setEcosystem('freshwater'); setOpenZoneIndex(null); }}
+                    onClick={() => { setEcosystem('freshwater'); setOpenZones([]); }}
                     style={{
                         padding: 'clamp(0.5rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.5rem)',
                         borderRadius: '25px',
@@ -92,7 +92,7 @@ const AbyssSection = () => {
                     🏞️ Freshwater
                 </button>
                 <button
-                    onClick={() => { setEcosystem('marine'); setOpenZoneIndex(null); }}
+                    onClick={() => { setEcosystem('marine'); setOpenZones([]); }}
                     style={{
                         padding: 'clamp(0.5rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.5rem)',
                         borderRadius: '25px',
@@ -125,11 +125,18 @@ const AbyssSection = () => {
                 boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
             }}>
                 {currentZones.map((zone, index) => {
-                    const isOpen = openZoneIndex === index;
+                    const isOpen = openZones.includes(index);
+
+                    const toggleZone = () => {
+                        setOpenZones(prev =>
+                            prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+                        );
+                    };
+
                     return (
                         <div
                             key={`${ecosystem}-${index}`}
-                            onClick={() => setOpenZoneIndex(isOpen ? null : index)}
+                            onClick={toggleZone}
                             style={{
                                 backgroundColor: zone.color,
                                 padding: 'clamp(1rem, 3vw, 1.5rem) 2rem',

@@ -185,10 +185,9 @@ const SunlitSection = () => {
                         paddingLeft: '1.2rem',
                         margin: 0
                     }}>
-                        <li><strong>Salinity:</strong> less than 0.5 ppt</li>
-                        <li>Only 2.5% of Earth's water is fresh</li>
-                        <li>Less than 1% is accessible liquid freshwater</li>
-                        <li><strong>Types:</strong> Rivers, Lakes, & Wetlands</li>
+                        <li>Salt? Almost none (&lt; 0.5 ppt)</li>
+                        <li>Rarest water on Earth — less than 1% is actually usable</li>
+                        <li>Found in rivers, lakes, and wetlands</li>
                     </ul>
                 </div>
 
@@ -208,10 +207,9 @@ const SunlitSection = () => {
                         paddingLeft: '1.2rem',
                         margin: 0
                     }}>
-                        <li><strong>Salinity:</strong> 30–38 ppt</li>
-                        <li>97% of all Earth's water</li>
-                        <li>Covers 70% of Earth's surface</li>
-                        <li><strong>Types:</strong> Open ocean, Coral reefs, & Estuaries</li>
+                        <li>Covers 70% of our planet's surface</li>
+                        <li>Makes up 97% of all Earth's water</li>
+                        <li>Found in open oceans, coral reefs, and estuaries</li>
                     </ul>
                 </div>
             </div>

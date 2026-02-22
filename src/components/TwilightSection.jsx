@@ -124,8 +124,8 @@ const TwilightSection = () => {
                     setActiveIndex={setActiveIndex}
                 >
                     <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.85rem, 2vw, 0.95rem)', color: 'rgba(255,255,255,0.8)' }}>
-                        <p><strong>Definition:</strong> Concentration of dissolved salts (NaCl) in water</p>
-                        <p><strong>Why it matters:</strong> Organisms evolved for specific salt levels. Wrong salinity = death by osmosis.</p>
+                        <p><strong>Definition:</strong> How much salt is dissolved in water</p>
+                        <p><strong>Why it matters:</strong> Each organism is built for one salt level — put it in the wrong water, and it dies</p>
 
                         <div style={{ marginTop: '1.5rem' }}>
                             <div style={{ display: 'flex', height: '10px', width: '100%', borderRadius: '5px', overflow: 'hidden', marginBottom: '10px' }}>
@@ -150,8 +150,8 @@ const TwilightSection = () => {
                     setActiveIndex={setActiveIndex}
                 >
                     <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.85rem, 2vw, 0.95rem)', color: 'rgba(255,255,255,0.8)' }}>
-                        <p><strong>Definition:</strong> O₂ dissolved in water — absorbed by organisms through gills or skin</p>
-                        <p><strong>Why it matters:</strong> Below 2 mg/L = hypoxia = dead zone. Nothing survives.</p>
+                        <p><strong>Definition:</strong> Oxygen in water that aquatic life breathes through gills or skin</p>
+                        <p><strong>Why it matters:</strong> Too little oxygen, and the water becomes a dead zone — nothing survives</p>
 
                         <div style={{ marginTop: '1.5rem' }}>
                             <div style={{
@@ -177,8 +177,8 @@ const TwilightSection = () => {
                     setActiveIndex={setActiveIndex}
                 >
                     <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.85rem, 2vw, 0.95rem)', color: 'rgba(255,255,255,0.8)' }}>
-                        <p><strong>Definition:</strong> Dissolved N and P fueling plant/algae growth</p>
-                        <p><strong>Why it matters:</strong> Too few = barren. Too many = algal bloom → oxygen crash → mass death.</p>
+                        <p><strong>Definition:</strong> Chemicals like nitrogen and phosphorus that feed aquatic plants and algae</p>
+                        <p><strong>Why it matters:</strong> Balance is everything — too little means barely any life, too much triggers a chain reaction that kills it all</p>
 
                         <div style={{ display: 'flex', gap: '2rem', marginTop: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
                             <div style={{ flex: 1, minWidth: '200px' }}>

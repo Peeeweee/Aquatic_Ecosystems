@@ -66,34 +66,34 @@ const WarningPanel = ({ id, title, content, isOpen, onToggle }) => {
 };
 
 const TrenchSection = ({ onReturn }) => {
-    const [openPanel, setOpenPanel] = useState(null);
+    const [openPanels, setOpenPanels] = useState([]);
     const [showSources, setShowSources] = useState(false);
 
     const threats = [
         {
             id: 0,
             title: '🏭 Water Pollution',
-            content: 'Industrial waste, sewage, plastics, and oil spills contaminate aquatic environments. Real example: Pasig River, Philippines — once declared biologically dead, it serves as a stark reminder of the consequences of uncontrolled waste disposal.'
+            content: "We treat water like a dumping ground. Industrial waste, sewage, and plastics don't disappear — they build up, poison the ecosystem, and eventually make entire bodies of water uninhabitable."
         },
         {
             id: 1,
             title: '🌿 Eutrophication',
-            content: 'Fertilizer runoff leads to nutrient overloads, causing algal blooms that deplete oxygen. Real example: The Gulf of Mexico Dead Zone, spanning 6,000–7,000 square miles.'
+            content: "We're overfeeding the water. Fertilizer runoff floods aquatic systems with nutrients, triggering uncontrolled algae growth that suffocates everything beneath it."
         },
         {
             id: 2,
             title: '🌡️ Climate Change',
-            content: 'Rising temperatures lower dissolved oxygen levels, while ocean acidification dissolves coral skeletons. Real example: The Great Barrier Reef, suffering mass coral bleaching.'
+            content: "Warmer water holds less oxygen, and more acidic oceans dissolve the very shells and skeletons marine life is built from. The ocean is slowly becoming a place fewer things can survive in."
         },
         {
             id: 3,
             title: '🎣 Overfishing',
-            content: 'The removal of apex predators collapses entire food webs. Real example: Populations of tuna and sharks have plummeted by over 90% since industrial fishing began.'
+            content: "We're pulling out faster than nature can replace. When apex predators disappear, the entire food web loses its structure — and it doesn't just bounce back."
         },
         {
             id: 4,
             title: '🦀 Invasive Species',
-            content: 'Non-native organisms outcompete local species and destroy balance. Real example: Golden apple snails in Philippine freshwater rice ecosystems.'
+            content: "When a species lands somewhere it doesn't belong, it plays by different rules. It has no natural predators, no limits — and native species that evolved over thousands of years can't compete."
         }
     ];
 
@@ -161,34 +161,43 @@ const TrenchSection = ({ onReturn }) => {
                         id={threat.id}
                         title={threat.title}
                         content={threat.content}
-                        isOpen={openPanel === threat.id}
-                        onToggle={(id) => setOpenPanel(openPanel === id ? null : id)}
+                        isOpen={openPanels.includes(threat.id)}
+                        onToggle={(id) => setOpenPanels(prev =>
+                            prev.includes(id) ? prev.filter(panelId => panelId !== id) : [...prev, id]
+                        )}
                     />
                 ))}
             </div>
 
             {/* Final Quote Refinement */}
             <div style={{
-                textAlign: 'center',
-                maxWidth: '900px',
-                marginBottom: '5rem',
-                transform: 'translateY(0)',
-                opacity: 0.9,
-                transition: 'all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1)',
-                zIndex: 5
+                width: '100%',
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 5,
+                marginTop: '10vh',
+                marginBottom: '10vh',
             }}>
-                <blockquote style={{ margin: 0, position: 'relative' }}>
-                    <h2 className="cinzel" style={{
-                        fontSize: 'clamp(1.5rem, 5vw, 2.5rem)',
-                        color: 'white',
-                        lineHeight: '1.4',
-                        textShadow: '0 0 20px rgba(93, 240, 232, 0.3)',
-                        fontWeight: 'lighter',
-                    }}>
-                        "The deeper we go, the more we find — <br />
-                        <span style={{ color: 'var(--teal)' }}>and the more we stand to lose."</span>
-                    </h2>
-                </blockquote>
+                <div style={{
+                    textAlign: 'center',
+                    maxWidth: '1000px',
+                    animation: 'quote-emphasize 6s ease-in-out infinite',
+                }}>
+                    <blockquote style={{ margin: 0, position: 'relative' }}>
+                        <h2 className="cinzel" style={{
+                            fontSize: 'clamp(2rem, 6vw, 3.5rem)',
+                            color: 'white',
+                            lineHeight: '1.4',
+                            textShadow: '0 0 20px rgba(93, 240, 232, 0.5)',
+                            fontWeight: 'normal',
+                        }}>
+                            "The deeper we go, the more we find — <br />
+                            <span style={{ color: 'var(--teal)' }}>and the more we stand to lose."</span>
+                        </h2>
+                    </blockquote>
+                </div>
             </div>
 
             {/* Redesigned Sources Area */}
@@ -290,6 +299,10 @@ const TrenchSection = ({ onReturn }) => {
                 @keyframes teal-pulse {
                     0%, 100% { opacity: 0.7; transform: scale(1); }
                     50% { opacity: 1; transform: scale(1.02); }
+                }
+                @keyframes quote-emphasize {
+                    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+                    50% { transform: scale(1.03); filter: drop-shadow(0 0 15px rgba(93, 240, 232, 0.5)); }
                 }
             `}</style>
         </div>

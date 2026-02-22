@@ -198,14 +198,14 @@ const MidnightSection = () => {
                     id={0}
                     isFlipped={flipStates[0]}
                     onFlip={handleFlip}
-                    front={{ emoji: '🔵', name: 'PLANKTON', teaser: 'They drift. They have no choice.' }}
+                    front={{ emoji: '🪸', name: 'PLANKTON', teaser: 'They drift. They have no choice.' }}
                     back={{
                         origin: 'planktos = "wandering"',
-                        definition: 'Organisms that cannot swim against the current. They drift with the water.',
+                        definition: 'Drifters — they go wherever the water takes them.',
                         points: [
-                            'Phytoplankton: Produce 50% of Earth\'s oxygen.',
-                            'Zooplankton: Link to larger animals.',
-                            'Examples: Diatoms, krill, fish eggs.'
+                            'Phytoplankton: The tiny producers at the base of everything',
+                            'Zooplankton: The link between producers and bigger animals',
+                            'Examples: Diatoms, krill, fish eggs'
                         ],
                         fact: 'Phytoplankton produce more oxygen than all forests combined.'
                     }}
@@ -214,13 +214,13 @@ const MidnightSection = () => {
                     id={1}
                     isFlipped={flipStates[1]}
                     onFlip={handleFlip}
-                    front={{ emoji: '🐋', name: 'NEKTON', teaser: 'They swim. They choose.' }}
+                    front={{ emoji: '🌊', name: 'NEKTON', teaser: 'They swim. They choose.' }}
                     back={{
                         origin: 'nektos = "swimming"',
-                        definition: 'Organisms that can swim actively against currents. They control their position.',
+                        definition: 'Strong swimmers — they choose where they go.',
                         points: [
-                            'Sub-groups: Fish, Marine mammals, Reptiles, Cephalopods.',
-                            'Examples: Tuna, sharks, whales, salmon, squid.'
+                            'Sub-groups: Fish, marine mammals, reptiles, cephalopods',
+                            'Examples: Sharks, whales, salmon, squid'
                         ],
                         fact: 'Remove apex nekton and the entire food web collapses.'
                     }}
@@ -232,11 +232,11 @@ const MidnightSection = () => {
                     front={{ emoji: '🪨', name: 'BENTHOS', teaser: 'They stay. The bottom is their world.' }}
                     back={{
                         origin: 'benthos = "depths of the sea"',
-                        definition: 'Bottom-dwellers. They live on or in the ocean floor.',
+                        definition: 'Bottom-dwellers — the floor is their home.',
                         points: [
-                            'Sessile: Sponges, oysters, coral.',
-                            'Burrowers: Clams, worms, shrimp.',
-                            'Crawlers: Crabs, lobsters, sea stars.'
+                            'Sessile: Sponges, oysters, coral',
+                            'Burrowers: Clams, worms, shrimp',
+                            'Crawlers: Crabs, lobsters, sea stars'
                         ],
                         fact: 'One oyster filters up to 50 gallons of water per day.'
                     }}
