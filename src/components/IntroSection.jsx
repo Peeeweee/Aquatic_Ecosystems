@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { SplashTrigger } from './MarineLife';
 import EnvironmentalScene from './EnvironmentalScene';
 
-const IntroSection = ({ onDive }) => {
+const IntroSection = ({ onDive, introComplete }) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        setVisible(true);
-    }, []);
+        if (introComplete) {
+            setVisible(true);
+        }
+    }, [introComplete]);
 
     return (
         <div style={{
@@ -42,7 +44,7 @@ const IntroSection = ({ onDive }) => {
                     lineHeight: 1.1
                 }}>
                     AQUATIC<br />
-                    <span style={{ color: 'white' }}>ECOSYSTEMS</span>
+                    <span style={{ color: 'white', fontSize: 'clamp(1rem, 2.5vw, 2rem)' }}>ECOSYSTEMS</span>
                 </h1>
 
                 {/* Accent Line */}

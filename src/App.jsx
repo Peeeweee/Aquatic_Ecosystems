@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Anchor, Submarine, ResearchShip } from './components/MarineLife';
+import CinematicIntro from './components/CinematicIntro';
 import IntroSection from './components/IntroSection';
 import SurfaceSection from './components/SurfaceSection';
 import SunlitSection from './components/SunlitSection';
@@ -94,13 +95,13 @@ const ZoneDivider = ({ depth, label, tag }) => {
 };
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [ripples, setRipples] = useState([]);
   const [isMuted, setIsMuted] = useState(true);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isAscending, setIsAscending] = useState(false);
   const [diveStarted, setDiveStarted] = useState(false);
+  const [introComplete, setIntroComplete] = useState(false);
   const [subPos, setSubPos] = useState({ left: '10%', top: '80%' }); // State for submarine position
 
   const handleScreenClick = (e) => {
@@ -240,8 +241,7 @@ const App = () => {
     `;
     document.head.appendChild(style);
 
-    // Loading timer
-    const timer = setTimeout(() => setLoading(false), 2500);
+
 
     // Scroll listener with requestAnimationFrame throttling
     let lastKnownScrollPosition = 0;
@@ -309,10 +309,9 @@ const App = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      clearTimeout(timer);
       observer.disconnect();
     };
-  }, [loading]);
+  }, []);
 
   const toggleAudio = () => {
     if (!audioRef.current) return;
@@ -355,31 +354,9 @@ const App = () => {
     <div onClick={handleClick} style={{ minHeight: '600vh' }}>
       <audio ref={audioRef} loop src="https://www.soundjay.com/nature/sounds/ocean-wave-1.mp3" />
 
-      {/* Loading Screen */}
-      {loading && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          backgroundColor: 'black',
-          zIndex: 1000,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-        }}>
-          <div style={{
-            width: '100px',
-            height: '100px',
-            border: '2px solid var(--teal)',
-            borderRadius: '50%',
-            position: 'absolute',
-            animation: 'sonar 2s infinite',
-          }} />
-          <h1 className="cinzel" style={{ fontSize: 'clamp(1rem, 5vw, 1.5rem)', letterSpacing: '0.2rem', marginTop: '120px', textAlign: 'center', padding: '0 20px' }}>
-            INITIALIZING DIVE SYSTEMS...
-          </h1>
-        </div>
+      {/* Cinematic Intro */}
+      {!introComplete && (
+        <CinematicIntro onComplete={() => setIntroComplete(true)} />
       )}
 
       {/* HUD: Sound Toggle */}
@@ -570,7 +547,7 @@ const App = () => {
       ))}
 
       {/* Persistent Submarine Following User */}
-      {!loading && diveStarted && (
+      {introComplete && diveStarted && (
         <div style={{
           position: 'fixed',
           left: isAscending ? '10%' : subPos.left,
@@ -619,7 +596,7 @@ const App = () => {
 
       {/* Sections */}
       <section id="intro" style={{ minHeight: '100vh', width: '100%', position: 'relative' }}>
-        <IntroSection onDive={handleDive} />
+        <IntroSection onDive={handleDive} introComplete={introComplete} />
       </section>
 
       <ZoneDivider depth="0m" tag="DIVE INITIATED" label="APPROACHING SURFACE" />
